@@ -1,4 +1,5 @@
 /* oxlint-disable next/no-img-element */
+/* oxlint-disable next/no-html-link-for-pages */
 import {
   ArrowRight,
   Building2,
@@ -8,7 +9,6 @@ import {
   ShoppingBag,
   Warehouse,
 } from 'lucide-react';
-import Link from 'next/link';
 import { industries, type IndustrySlug } from '@/lib/industry-data';
 
 const icons: Record<IndustrySlug, typeof ShoppingBag> = {
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <main className="selection-page">
       <header className="site-header shell">
-        <Link className="wordmark" href="/" aria-label="EYORA home"><img alt="EYORA" src="/images/eyora-logo.png" /></Link>
+        <a className="wordmark" href="/" aria-label="EYORA home"><img alt="EYORA" src="/images/eyora-logo.png" /></a>
         <span className="header-context">Industry template collection</span>
       </header>
 
@@ -40,11 +40,11 @@ export default function Home() {
             {industries.map((industry) => {
               const Icon = icons[industry.slug];
               return (
-                <Link className="industry-card" href={`/industry/${industry.slug}`} key={industry.slug}>
+                <a className="industry-card" href={`/industry/${industry.slug}`} key={industry.slug}>
                   <span className="industry-icon"><Icon size={24} strokeWidth={1.7} /></span>
                   <span className="industry-card-copy"><strong>{industry.name}</strong><span>{industry.cardDescription}</span></span>
                   <span className="industry-link">View template <ArrowRight size={15} /></span>
-                </Link>
+                </a>
               );
             })}
           </nav>

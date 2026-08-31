@@ -1,4 +1,5 @@
 /* oxlint-disable next/no-img-element */
+/* oxlint-disable next/no-html-link-for-pages */
 import {
   ArrowDownRight,
   ArrowLeft,
@@ -19,7 +20,6 @@ import {
   UsersRound,
   Zap,
 } from 'lucide-react';
-import Link from 'next/link';
 import { industries, type Industry } from '@/lib/industry-data';
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -52,7 +52,7 @@ function TemplateKicker({ industry }: { industry: Industry }) {
 }
 
 function BackLink() {
-  return <Link className="back-link" href="/"><ArrowLeft size={15} /> Back to all industries</Link>;
+  return <a className="back-link" href="/"><ArrowLeft size={15} /> Back to all industries</a>;
 }
 
 const whatsAppUrl = 'https://wa.me/97366766652';
@@ -61,13 +61,13 @@ function TemplateHeader() {
   return (
     <header className="route-header">
       <div className="shell route-navbar">
-        <Link className="wordmark" href="/" aria-label="EYORA home"><img alt="EYORA" src="/images/eyora-logo.png" /></Link>
+        <a className="wordmark" href="/" aria-label="EYORA home"><img alt="EYORA" src="/images/eyora-logo.png" /></a>
         <nav className="route-primary-nav" aria-label="Main navigation">
-          <Link href="#products">Products</Link>
-          <Link href="#template">How It Works</Link>
-          <Link href="/#industries">Industries</Link>
-          <Link href="/">Why Eyora</Link>
-          <Link href="#contact">Contact</Link>
+          <a href="#products">Products</a>
+          <a href="#template">How It Works</a>
+          <a href="/#industries">Industries</a>
+          <a href="/">Why Eyora</a>
+          <a href="#contact">Contact</a>
         </nav>
         <a className="nav-whatsapp" href={whatsAppUrl} rel="noreferrer" target="_blank">WhatsApp Us</a>
       </div>
@@ -79,7 +79,7 @@ function IndustryTabs({ currentIndustry }: { currentIndustry: Industry }) {
   return (
     <nav className="template-industry-tabs" aria-label="Choose an industry template">
       {industries.map((item) => (
-        <Link
+        <a
           aria-current={item.slug === currentIndustry.slug ? 'page' : undefined}
           className={item.slug === currentIndustry.slug ? 'active' : ''}
           href={`/industry/${item.slug}`}
@@ -87,7 +87,7 @@ function IndustryTabs({ currentIndustry }: { currentIndustry: Industry }) {
         >
           <span>{item.templateNumber}</span>
           {item.name}
-        </Link>
+        </a>
       ))}
     </nav>
   );
@@ -104,7 +104,7 @@ function ContactCta() {
           <a className="contact-whatsapp" href={whatsAppUrl} rel="noreferrer" target="_blank">
             <MessageCircle size={17} /> Chat on WhatsApp — +973 6676 6652
           </a>
-          <Link className="contact-catalog" href="/#industries">Browse Catalog</Link>
+          <a className="contact-catalog" href="/#industries">Browse Catalog</a>
         </div>
       </div>
     </section>
@@ -125,17 +125,17 @@ function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer-grid shell">
         <div className="footer-brand">
-          <Link className="footer-logo" href="/" aria-label="EYORA home"><img alt="EYORA" src="/images/eyora-logo.png" /></Link>
+          <a className="footer-logo" href="/" aria-label="EYORA home"><img alt="EYORA" src="/images/eyora-logo.png" /></a>
           <p>Metal-bodied IP cameras, NVR systems and PoE networking gear. Based in Bahrain.</p>
           <a href={whatsAppUrl} rel="noreferrer" target="_blank"><MessageCircle size={16} /> WhatsApp: +973 6676 6652</a>
         </div>
         <nav className="footer-column" id="products" aria-label="Products">
           <strong>Products</strong>
-          {productLinks.map((label) => <Link href="/#industries" key={label}>{label}</Link>)}
+          {productLinks.map((label) => <a href="/#industries" key={label}>{label}</a>)}
         </nav>
         <nav className="footer-column" aria-label="Company">
           <strong>Company</strong>
-          {companyLinks.map((link) => <Link href={link.href} key={link.label}>{link.label}</Link>)}
+          {companyLinks.map((link) => <a href={link.href} key={link.label}>{link.label}</a>)}
         </nav>
       </div>
       <div className="footer-bottom shell">
