@@ -29,7 +29,7 @@ export const industries: Industry[] = [
     label: 'Retail & commercial security',
     headline: 'Clear coverage from entrance to stockroom.',
     description: 'Entrance, till and stockroom coverage with clear low-light footage.',
-    image: '/images/retail.png',
+    image: '/images/retail-mounted.png',
     templateNumber: '01',
     zones: ['Customer entrances', 'Tills and checkout', 'Sales floors', 'Stockrooms', 'Delivery access', 'Customer parking'],
     products: ['Low-Light Turret Cameras', 'Dome Cameras', 'Bullet Cameras', 'NVR & Storage', 'PoE Switches'],
