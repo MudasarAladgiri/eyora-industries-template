@@ -10,7 +10,6 @@ import {
   GraduationCap,
   KeyRound,
   LampDesk,
-  MapPin,
   MessageCircle,
   MoonStar,
   PackageCheck,
@@ -21,6 +20,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { industries, type Industry } from '@/lib/industry-data';
+import cameraStyles from './camera-highlights.module.css';
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <span className="eyebrow">{children}</span>;
@@ -158,11 +158,20 @@ function RetailTemplate({ industry }: { industry: Industry }) {
           <Actions />
           <div className="stats-row">{industry.capabilities.map((stat) => <span key={stat}><Check size={14} /> {stat}</span>)}</div>
         </div>
-        <div className="visual-frame retail-visual">
+        <div className={`visual-frame retail-visual ${cameraStyles.retailFrame}`}>
           <img alt="Modern retail showroom with entrances, aisles and checkout areas" src={industry.image} />
-          <span className="coverage-pin pin-entrance"><MapPin size={14} /> Entrance</span>
-          <span className="coverage-pin pin-aisle"><Radio size={14} /> Aisle 03</span>
-          <span className="coverage-pin pin-checkout"><ShieldCheck size={14} /> Checkout</span>
+          <span className={`${cameraStyles.cameraHighlight} ${cameraStyles.entranceMount}`}>
+            <i className={cameraStyles.focusRing} />
+            <strong className={cameraStyles.cameraLabel}><Radio size={12} /> Entrance mount</strong>
+          </span>
+          <span className={`${cameraStyles.cameraHighlight} ${cameraStyles.aisleMount}`}>
+            <i className={cameraStyles.focusRing} />
+            <strong className={cameraStyles.cameraLabel}><Radio size={12} /> Aisle mount</strong>
+          </span>
+          <span className={`${cameraStyles.cameraHighlight} ${cameraStyles.checkoutMount}`}>
+            <i className={cameraStyles.focusRing} />
+            <strong className={cameraStyles.cameraLabel}><Radio size={12} /> Checkout mount</strong>
+          </span>
           <div className="floating-status"><span className="status-icon"><PackageCheck size={18} /></span><span><small>System status</small><strong>All zones visible</strong></span></div>
         </div>
       </div>

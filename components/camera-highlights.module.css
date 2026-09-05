@@ -1,0 +1,118 @@
+.retailFrame {
+  aspect-ratio: 16 / 9;
+}
+
+.cameraHighlight {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.entranceMount {
+  top: 9%;
+  left: 6.5%;
+}
+
+.aisleMount {
+  top: 7%;
+  left: 41.5%;
+}
+
+.checkoutMount {
+  top: 7.5%;
+  left: 89.2%;
+}
+
+.focusRing {
+  position: relative;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 2px solid #6df488;
+  border-radius: 50%;
+  background: rgba(10, 49, 29, 0.16);
+  box-shadow:
+    0 0 0 5px rgba(79, 230, 108, 0.18),
+    0 0 24px rgba(79, 230, 108, 0.72),
+    inset 0 0 12px rgba(79, 230, 108, 0.2);
+}
+
+.focusRing::before,
+.focusRing::after {
+  position: absolute;
+  border: 1px solid rgba(111, 248, 137, 0.72);
+  border-radius: 50%;
+  content: '';
+}
+
+.focusRing::before {
+  inset: -9px;
+  animation: cameraPulse 2.2s ease-out infinite;
+}
+
+.focusRing::after {
+  width: 7px;
+  height: 7px;
+  background: #76f48d;
+  box-shadow: 0 0 12px #57e874;
+}
+
+.cameraLabel {
+  display: inline-flex;
+  min-height: 28px;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  border: 1px solid rgba(129, 242, 150, 0.58);
+  border-radius: 999px;
+  background: rgba(8, 38, 23, 0.88);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 22px rgba(4, 28, 15, 0.28);
+  color: #fff;
+  padding: 0 10px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cameraLabel svg {
+  color: #72ef88;
+}
+
+@keyframes cameraPulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.76);
+  }
+  72%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (max-width: 680px) {
+  .focusRing {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cameraLabel {
+    min-height: 25px;
+    margin-top: 7px;
+    padding: 0 8px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focusRing::before {
+    animation: none;
+    opacity: 0.55;
+  }
+}
