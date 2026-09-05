@@ -14,9 +14,7 @@ import {
   MoonStar,
   PackageCheck,
   Radio,
-  Route,
   ShieldCheck,
-  UsersRound,
   Zap,
 } from 'lucide-react';
 import { industries, type Industry } from '@/lib/industry-data';
@@ -146,6 +144,26 @@ function SiteFooter() {
   );
 }
 
+function MountedCamera({
+  className,
+  image,
+  label,
+}: {
+  className: string;
+  image: string;
+  label: string;
+}) {
+  return (
+    <span className={`${cameraStyles.cameraHighlight} ${className}`}>
+      <span className={cameraStyles.cameraTarget}>
+        <img className={cameraStyles.mountedCamera} alt="" aria-hidden="true" src={image} />
+        <i className={cameraStyles.focusRing} />
+      </span>
+      <strong className={cameraStyles.cameraLabel}><Radio size={12} /> {label}</strong>
+    </span>
+  );
+}
+
 function RetailTemplate({ industry }: { industry: Industry }) {
   return (
     <section className="template template-retail">
@@ -160,18 +178,9 @@ function RetailTemplate({ industry }: { industry: Industry }) {
         </div>
         <div className={`visual-frame retail-visual ${cameraStyles.retailFrame}`}>
           <img alt="Modern retail showroom with entrances, aisles and checkout areas" src={industry.image} />
-          <span className={`${cameraStyles.cameraHighlight} ${cameraStyles.entranceMount}`}>
-            <i className={cameraStyles.focusRing} />
-            <strong className={cameraStyles.cameraLabel}><Radio size={12} /> Entrance mount</strong>
-          </span>
-          <span className={`${cameraStyles.cameraHighlight} ${cameraStyles.aisleMount}`}>
-            <i className={cameraStyles.focusRing} />
-            <strong className={cameraStyles.cameraLabel}><Radio size={12} /> Aisle mount</strong>
-          </span>
-          <span className={`${cameraStyles.cameraHighlight} ${cameraStyles.checkoutMount}`}>
-            <i className={cameraStyles.focusRing} />
-            <strong className={cameraStyles.cameraLabel}><Radio size={12} /> Checkout mount</strong>
-          </span>
+          <MountedCamera className={cameraStyles.entranceMount} image="/images/eyora-official-bullet.png" label="Entrance bullet" />
+          <MountedCamera className={cameraStyles.aisleMount} image="/images/eyora-official-turret.png" label="Aisle turret" />
+          <MountedCamera className={cameraStyles.checkoutMount} image="/images/eyora-official-dome.png" label="Checkout dome" />
           <div className="floating-status"><span className="status-icon"><PackageCheck size={18} /></span><span><small>System status</small><strong>All zones visible</strong></span></div>
         </div>
       </div>
@@ -190,7 +199,12 @@ function ResidentialTemplate({ industry }: { industry: Industry }) {
       <TemplateKicker industry={industry} />
       <div className="residential-head"><div><Eyebrow>{industry.label}</Eyebrow><h1>{industry.headline}</h1></div><div><p>{industry.description}</p><Actions /></div></div>
       <div className="residential-scene">
-        <div className="visual-frame residential-visual"><img alt="Warm gated residential compound" src={industry.image} /><span className="home-pin gate-pin"><KeyRound size={14} /> Main gate</span><span className="home-pin road-pin"><Route size={14} /> Internal road</span><span className="home-pin play-pin"><UsersRound size={14} /> Shared areas</span></div>
+        <div className="visual-frame residential-visual">
+          <img alt="Warm gated residential compound" src={industry.image} />
+          <MountedCamera className={`${cameraStyles.wallMounted} ${cameraStyles.residentialGateMount}`} image="/images/eyora-official-bullet.png" label="Main gate bullet" />
+          <MountedCamera className={`${cameraStyles.wallMounted} ${cameraStyles.residentialRoadMount}`} image="/images/eyora-official-bullet.png" label="Road approach" />
+          <MountedCamera className={cameraStyles.residentialSharedMount} image="/images/eyora-official-dome.png" label="Shared-area dome" />
+        </div>
         <div className="reassurance-grid">{[MoonStar, Eye, Clock3].map((Icon, index) => <div className="reassurance-card" key={industry.capabilities[index]}><Icon size={20} /><strong>{industry.capabilities[index]}</strong><span>{index === 0 ? 'Visibility through changing light' : index === 1 ? 'Stay connected from anywhere' : 'Recorded coverage when needed'}</span></div>)}</div>
       </div>
       <div className="residential-details"><div><span className="mini-label">Community coverage</span><ZoneList zones={industry.zones} /></div><div><span className="mini-label">Recommended products</span><ProductPills products={industry.products} /><Requirement industry={industry} /></div></div>
@@ -204,7 +218,13 @@ function LogisticsTemplate({ industry }: { industry: Industry }) {
     <section className="template template-logistics">
       <TemplateKicker industry={industry} />
       <div className="logistics-head"><div><Eyebrow>{industry.label}</Eyebrow><h1>{industry.headline}</h1></div><div><p>{industry.description}</p><Actions /></div></div>
-      <div className="visual-frame logistics-visual"><img alt="Distribution warehouse with loading and dispatch areas" src={industry.image} /><div className="logistics-overlay"><span><Radio size={15} /> Yard 01</span><span><Radio size={15} /> Dock 06</span><span><Radio size={15} /> Dispatch</span></div></div>
+      <div className="visual-frame logistics-visual">
+        <img alt="Distribution warehouse with loading and dispatch areas" src={industry.image} />
+        <MountedCamera className={`${cameraStyles.wallMounted} ${cameraStyles.logisticsYardMount}`} image="/images/eyora-official-bullet.png" label="Yard bullet" />
+        <MountedCamera className={cameraStyles.logisticsDockMount} image="/images/eyora-official-turret.png" label="Loading-dock turret" />
+        <MountedCamera className={cameraStyles.logisticsDispatchMount} image="/images/eyora-official-dome.png" label="Dispatch dome" />
+        <div className="logistics-overlay"><span><Radio size={15} /> Yard 01</span><span><Radio size={15} /> Dock 06</span><span><Radio size={15} /> Dispatch</span></div>
+      </div>
       <div className="operations-flow" aria-label="Operational flow">{['Vehicle Arrival', 'Loading Dock', 'Storage', 'Dispatch'].map((step, index) => <div key={step}><span>0{index + 1}</span><strong>{step}</strong>{index < 3 && <ArrowRight size={17} />}</div>)}</div>
       <div className="logistics-grid">
         <div className="capability-matrix">{industry.capabilities.map((item, index) => <div key={item}><span>{index === 0 ? '120m' : index === 1 ? '24/7' : index === 2 ? '30d' : '360°'}</span><strong>{item}</strong></div>)}</div>
@@ -220,7 +240,7 @@ function EducationTemplate({ industry }: { industry: Industry }) {
   return (
     <section className="template template-education">
       <TemplateKicker industry={industry} />
-      <div className="education-hero"><div className="education-copy"><Eyebrow>{industry.label}</Eyebrow><h1>{industry.headline}</h1><p>{industry.description}</p><Actions /></div><div className="visual-frame education-visual"><img alt="Bright modern education campus" src={industry.image} /><div className="campus-caption"><GraduationCap size={17} /><span><small>Campus overview</small><strong>Connected spaces. Central recording.</strong></span></div></div></div>
+      <div className="education-hero"><div className="education-copy"><Eyebrow>{industry.label}</Eyebrow><h1>{industry.headline}</h1><p>{industry.description}</p><Actions /></div><div className="visual-frame education-visual"><img alt="Bright modern education campus" src={industry.image} /><MountedCamera className={`${cameraStyles.wallMounted} ${cameraStyles.educationGateMount}`} image="/images/eyora-official-bullet.png" label="Main gate bullet" /><MountedCamera className={cameraStyles.educationReceptionMount} image="/images/eyora-official-turret.png" label="Reception turret" /><MountedCamera className={cameraStyles.educationCourtyardMount} image="/images/eyora-official-dome.png" label="Courtyard dome" /><div className="campus-caption"><GraduationCap size={17} /><span><small>Campus overview</small><strong>Connected spaces. Central recording.</strong></span></div></div></div>
       <div className="campus-zones">{[Eye, Radio, Zap, KeyRound].map((Icon, index) => <div key={industry.capabilities[index]}><span className="campus-icon"><Icon size={20} /></span><small>Priority 0{index + 1}</small><strong>{industry.capabilities[index]}</strong><p>{index === 0 ? 'Consistent visibility across the campus' : index === 1 ? 'One NVR for coordinated recording' : index === 2 ? 'Power and data through simple PoE' : 'Clear coverage at gates and entrances'}</p></div>)}</div>
       <div className="education-details"><div><span className="mini-label">Visibility areas</span><ZoneList zones={industry.zones} /></div><div><span className="mini-label">Recommended products</span><ProductPills products={industry.products} /><Requirement industry={industry} /></div></div>
       <BackLink />
@@ -234,12 +254,19 @@ function CorporateTemplate({ industry }: { industry: Industry }) {
     'Clear oversight from reception through shared work areas',
     'Reliable visibility around staff and visitor parking',
   ];
+  const officialCameras = [
+    { name: 'EYRD Dome Series', use: 'Lobbies & reception', image: '/images/eyora-official-dome.png' },
+    { name: 'EYRT Turret Series', use: 'Floors & corridors', image: '/images/eyora-official-turret.png' },
+    { name: 'EYRB Bullet Series', use: 'Entrances & car parks', image: '/images/eyora-official-bullet.png' },
+  ];
   return (
     <section className="template template-corporate">
       <TemplateKicker industry={industry} />
       <div className="corporate-editorial">
-        <div className="visual-frame corporate-visual">
+        <div className={`visual-frame corporate-visual ${cameraStyles.corporateVisual}`}>
           <img alt="Modern corporate office with lobby and shared work areas" src={industry.image} />
+          <MountedCamera className={`${cameraStyles.officeMount} ${cameraStyles.officeReceptionMount}`} image="/images/eyora-official-dome.png" label="Reception dome" />
+          <MountedCamera className={`${cameraStyles.officeMount} ${cameraStyles.officeFloorMount}`} image="/images/eyora-official-turret.png" label="Office floor turret" />
           <div className="floor-badge"><LampDesk size={18} /><span><small>Workplace overview</small><strong>Quiet, professional coverage</strong></span></div>
         </div>
         <div className="corporate-copy">
@@ -247,6 +274,21 @@ function CorporateTemplate({ industry }: { industry: Industry }) {
           <h1>{industry.headline}</h1>
           <p>{industry.description}</p>
           <Actions />
+          <div className={cameraStyles.officialCameraShelf}>
+            <div className={cameraStyles.shelfHeading}>
+              <span>Official EYORA hardware</span>
+              <strong>Specified for this workplace</strong>
+            </div>
+            <div className={cameraStyles.officialCameraGrid}>
+              {officialCameras.map((camera) => (
+                <article className={cameraStyles.officialCameraCard} key={camera.name}>
+                  <img alt={`${camera.name} security camera`} src={camera.image} />
+                  <strong>{camera.name}</strong>
+                  <span>{camera.use}</span>
+                </article>
+              ))}
+            </div>
+          </div>
           <div className="corporate-capabilities">
             {industry.capabilities.map((item, index) => <div key={item}><span>0{index + 1}</span><strong>{item}</strong><small>{capabilityNotes[index]}</small></div>)}
           </div>
@@ -284,6 +326,9 @@ function HospitalityTemplate({ industry }: { industry: Industry }) {
       <div className="hospitality-cinema">
         <img alt="Premium hospitality lobby and guest entrance" src={industry.image} />
         <div className="cinema-shade" />
+        <MountedCamera className={cameraStyles.hospitalityEntranceMount} image="/images/eyora-official-dome.png" label="Guest entrance dome" />
+        <MountedCamera className={cameraStyles.hospitalityLobbyMount} image="/images/eyora-official-dome.png" label="Lobby dome" />
+        <MountedCamera className={cameraStyles.hospitalityCorridorMount} image="/images/eyora-official-turret.png" label="Corridor turret" />
         <span className="cinema-note"><ShieldCheck size={15} /> IK10 guest-area protection</span>
         <div className="hospitality-title">
           <Eyebrow>{industry.label}</Eyebrow>
